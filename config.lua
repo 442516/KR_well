@@ -5,7 +5,7 @@ Config = {
 
     blips = {
         {
-            coords = {2501.644, 4800.448, 34.99194},
+            coords = vector3(2501.644, 4800.448, 34.99194),
             distance = 1.5,
 
             Sprite = 365,
