@@ -30,11 +30,14 @@ NPCAndBlip()
 
 Citizen.CreateThread(function()
 	while true do
+        local letsleep = true
 		Citizen.Wait(1)
         if (not isFetching) then
             for k, v in pairs(Config.blips) do
-                local coords = GetEntityCoords(GetPlayerPed(-1))
-                if (GetDistanceBetweenCoords(coords[1], coords[2], coords[3], v.coords[1], v.coords[2], v.coords[3], true) < v.distance) then
+                local coords = GetEntityCoords(PlayerPedId())
+                local dist = #(coords - v.coords)
+                if dist < v.distance then
+                    letsleep = false
                     ESX.ShowHelpNotification(_U('press_to_fetch'))
                     if (IsControlPressed(0, 38) and not isFetching) then
                         isFetching = true
@@ -57,6 +60,9 @@ Citizen.CreateThread(function()
                     end
                 end
             end
+        end
+        if letsleep then
+            Citizen.Wait(500)
         end
     end
 end)
